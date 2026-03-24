@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HidingGroupingElements: View {
+struct HidingElements: View {
     var body: some View {
         Image(decorative: "character") // by using decorative:, we're saying this image is just there to make the UI look better and doesn’t actually convey any information
         
@@ -16,6 +16,32 @@ struct HidingGroupingElements: View {
     }
 }
 
+struct GroupingElements: View {
+    var body: some View {
+        /*
+        VStack {
+            Text("Your Score Is")
+            Text("1000")
+        }
+        // VoiceOver sees this as two unrelated text views, so it will either read “Your Score Is” or “1000” depending on what the user has selected.
+         */
+        
+        // SOLUTION:
+        VStack {
+            Text("Your score is")
+            Text("1000")
+                .font(.title)
+        }
+        // .accessibilityElement(children: .combine) // This will cause both text views to be read together, with a short pause between them
+        
+        // OR
+        
+        // .accessibilityElement(children: .ignore) // This will cause both text views (children views of VStack) to be invisible to the VoiceOver and make it look like a single element
+        .accessibilityElement() // We can just use it like this because, children: .ignore is the default value
+        .accessibilityLabel("Your Score Is 1000") // Then add label so it reads naturally, without any pause
+    }
+}
+
 #Preview {
-    HidingGroupingElements()
+    GroupingElements()
 }
