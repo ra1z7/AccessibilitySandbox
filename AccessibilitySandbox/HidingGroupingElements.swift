@@ -9,10 +9,21 @@ import SwiftUI
 
 struct HidingElements: View {
     var body: some View {
-        Image(decorative: "character") // by using decorative:, we're saying this image is just there to make the UI look better and doesn’t actually convey any information
+        Image(.character)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 100, height: 200)
+        
+        Image(decorative: "character") // By using decorative:, we're saying this image is just there to make the UI look better and doesn’t actually convey any information, so its unselectable
+            .resizable()
+            .scaledToFit()
+            .frame(width: 100, height: 200)
         
         Image(.character)
-            .accessibilityHidden(true) // can get the same result using the .accessibilityHidden(), which makes any view completely invisible to the accessibility system
+            .resizable()
+            .scaledToFit()
+            .frame(width: 100, height: 200)
+            .accessibilityHidden(true) // We can get the same result as above using the .accessibilityHidden(), which makes any view completely invisible to the accessibility system, so its unselectable
     }
 }
 
@@ -43,5 +54,5 @@ struct GroupingElements: View {
 }
 
 #Preview {
-    GroupingElements()
+    HidingElements()
 }
