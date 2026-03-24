@@ -39,9 +39,7 @@ struct GroupingElements: View {
                 // VoiceOver sees this as two unrelated text views, so it will either read “Your Score Is” or “1000” depending on what the user has selected.
                 
                 Text("Normal")
-                    .fontDesign(.monospaced)
-                    .font(.caption2)
-                    .accessibilityHidden(true)
+                    .monospaceCaption()
                     .frame(width: 150)
             }
             .roundedBorderStyle()
@@ -56,9 +54,7 @@ struct GroupingElements: View {
                 .accessibilityElement(children: .combine) // This will cause both text views to be read together, with a short pause between them, and is selectable as one element
                 
                 Text(".accessibilityElement(\n\tchildren: .combine\n)")
-                    .fontDesign(.monospaced)
-                    .font(.caption2)
-                    .accessibilityHidden(true)
+                    .monospaceCaption()
             }
             .roundedBorderStyle()
             
@@ -74,26 +70,10 @@ struct GroupingElements: View {
                 .accessibilityLabel("Your Score Is 1000") // Then add label so it reads naturally, without any pause
                 
                 Text(".accessibilityElement(\n\tchildren: .ignore\n)\n.accessibilityLabel()")
-                    .fontDesign(.monospaced)
-                    .font(.caption2)
-                    .accessibilityHidden(true)
+                    .monospaceCaption()
             }
             .roundedBorderStyle()
         }
-    }
-}
-
-struct RoundedBorderModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .padding()
-            .background(.secondary, in: RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 1))
-    }
-}
-
-extension View {
-    func roundedBorderStyle() -> some View {
-        self.modifier(RoundedBorderModifier())
     }
 }
 
